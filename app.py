@@ -1,19 +1,6 @@
-
-description = \
-"""
-Deco AI
-"""
-
-article = \
-"""
-## What is this?
-Not sure yet
-"""
-
-
-#access_token = ""
-#with open("access_token.txt", "r") as f:
-#    access_token = f.read()
+access_token = ""
+with open("access_token.txt", "r") as f:
+    access_token = f.read()
 
 import torch
 from diffusers import StableDiffusionImg2ImgPipeline
@@ -26,8 +13,8 @@ run_on_cpu = not(torch.cuda.is_available())
 if run_on_cpu:
     device = torch.device("cpu")
     pipe = StableDiffusionImg2ImgPipeline.from_pretrained(
-        model_path#,
-       # use_auth_token=access_token
+        model_path,
+        use_auth_token=access_token
     )
     pipe = pipe.to(device)
     pipe.enable_attention_slicing()
@@ -68,11 +55,3 @@ image.save("output.jpg")
 
 print("Saved output image as [output.jpg] in local directory.")
 
-
-demo = gr.Interface(
-    fn=main,
-    title="Deco AI",
-    description=description,
-    article=article,
-    )
-demo.launch()
